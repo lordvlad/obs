@@ -1,4 +1,4 @@
-(function(x){
+define(function(){
 
     function filEvent( e )  { return function(l){ return l.__event !== e; } }
     function filFunct( f )  { return function(l){ return f !== l; } }
@@ -9,7 +9,8 @@
     function Observable( val, o ){
 
         val = val || null;
-
+        o = o || {};
+        
         if ( val && val.call ) return new Computed( val, o );
         if ( val && val.push ) return new ObservableArray( val, o );
 
@@ -37,7 +38,8 @@
     function ObservableArray( arr, o ){
 
         arr = arr || [];
-
+        o = o || {};
+        
         var listeners = [];
 
 
@@ -84,6 +86,7 @@
 
     function Computed( fn, o ){
         if (!fn || !fn.call) throw new Error( "Computed needs a computing function!" );
+        o = o || {};
 
         var deps = [], listeners = [], val;
 
@@ -116,10 +119,8 @@
         return obs;
     }
 
-
-    x.Computed = Computed;
-    x.Observable = Observable;
-    x.ObservableArray = ObservableArray;
-    x.O = function(v,o){ return new Observable(v,o); };
-
-}(window));
+    Observable.Computed = Computed;
+    Observable.ObservableArray = ObservableArray;
+    
+    return Observable;
+});
