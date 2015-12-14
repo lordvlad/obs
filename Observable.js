@@ -111,7 +111,7 @@ define(function(){
         var k = "__detected" + Math.random()*1e16
         Computed[k] = [];            // prepare dependency detection
         update();                    // start dependency detection
-        deps = Computed.[k];         // evaluate dependency detection
+        deps = Computed[k];          // evaluate dependency detection
         delete Computed[k];          // clean up dependency detection
 
         attach(); // set up listeners
