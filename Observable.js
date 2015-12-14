@@ -108,11 +108,11 @@ define(function(){
         obs.destroy = detach;
 
         obs.listeners = function(){ return listeners; }
-
-        Computed.__detected = [];                                 // prepare dependency detection
-        update();                                                 // start dependency detection
-        deps = val.__dependencies = Computed.__detected;          // evaluate dependency detection
-        delete Computed.__detected;                               // clean up dependency detection
+        var k = "__detected" + Math.random()*1e16
+        Computed[k] = [];            // prepare dependency detection
+        update();                    // start dependency detection
+        deps = Computed.[k];         // evaluate dependency detection
+        delete Computed[k];          // clean up dependency detection
 
         attach(); // set up listeners
 
